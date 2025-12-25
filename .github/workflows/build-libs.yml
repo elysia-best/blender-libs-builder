@@ -14,19 +14,15 @@ jobs:
     runs-on: ubuntu-latest
     permissions: write-all
     steps:
-      - name: Maximize build space
-        uses: easimon/maximize-build-space@master
-        with:
-          root-reserve-mb: 8000
-          swap-size-mb: 2048
-          remove-dotnet: 'true'
-          remove-android: 'true'
-
       - name: Checkout sources
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
           submodules: recursive
+
+      - name: Checkout Blender repo
+        run: |
+          git clone https://projects.blender.org/Yuanzhen-Gan/blender.git blender
 
       - name: Setup QEMU
         uses: docker/setup-qemu-action@v3
@@ -42,14 +38,15 @@ jobs:
           run: |
             cd /work
             bash ./linux_opencloudos9_setup.sh
-            # Test ROCm
-            /opt/rocm/bin/hipcc -v
+            
+            cd blender
+            make deps
             
             
-      # - name: Artifact
-      #   uses: actions/upload-artifact@v4
-      #   with:
-      #     name: Debian loong64 live cd ${{ matrix.variant }}
-      #     path: ${{ github.workspace }}/images/*.iso
-      #     compression-level: 0
-      #     if-no-files-found: error # 'warn' or 'ignore' are also available, defaults to `warn`
+      - name: Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: Debian loong64 live cd ${{ matrix.variant }}
+          path: ${{ github.workspace }}/blender/lib/linux_loongarch64/*
+          compression-level: 0
+          if-no-files-found: error # 'warn' or 'ignore' are also available, defaults to `warn`
