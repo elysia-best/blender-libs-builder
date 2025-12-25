@@ -26,7 +26,8 @@ jobs:
           lfs: true
           repository: Yuanzhen-Gan/blender
           github-server-url: 'https://projects.blender.org'
-          
+          token: ''
+
       - name: Setup QEMU
         uses: docker/setup-qemu-action@v3
 
