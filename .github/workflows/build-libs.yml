@@ -42,11 +42,15 @@ jobs:
             cd blender
             make deps
             
+      - name: Package built libraries
+        run: |
+          cd blender/lib
+          tar -czf linux_loongarch64.tar.gz linux_loongarch64
             
       - name: Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: Debian loong64 live cd ${{ matrix.variant }}
-          path: ${{ github.workspace }}/blender/lib/linux_loongarch64/*
+          name: Build libraries for Blender on loong64
+          path: ${{ github.workspace }}/blender/lib/linux_loongarch64.tar.gz 
           compression-level: 0
           if-no-files-found: error # 'warn' or 'ignore' are also available, defaults to `warn`
