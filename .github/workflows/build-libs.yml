@@ -48,7 +48,9 @@ jobs:
             
             cd blender
             # Replace mirror
-            sed -i 's|https://gmplib\.org/download|https://ftp\.gnu\.org/gnu|g' build_files/build_environment/cmake/versions.cmake
+            # http://ftp.gnu.org/pub/gnu to https://ftpmirror.gnu.org/
+            sed -i 's|http://ftp.gnu.org/pub/gnu|http://ftpmirror.gnu.org|g' build_files/build_environment/cmake/versions.cmake
+            sed -i 's|https://gmplib.org/download|http://ftpmirror.gnu.org|g' build_files/build_environment/cmake/versions.cmake
             make deps
             
       - name: Package built libraries
