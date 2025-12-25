@@ -15,6 +15,9 @@ if [ `id -u` -ne 0 ]; then
   exit 1
 fi
 
+# Change mirror
+sed -i 's|mirrors\.opencloudos\.tech|mirrors.tencent.com|g' /etc/yum.repos.d/*.repo
+
 # Required by: epel-release has the patchelf and rubygem-asciidoctor packages
 dnf -y install epol-release epol-extras-release
 
