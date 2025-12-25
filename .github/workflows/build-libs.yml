@@ -22,7 +22,7 @@ jobs:
       - name: Checkout Blender repo
         run: |
           git-lfs install
-          git clone https://projects.blender.org/Yuanzhen-Gan/blender.git blender
+          git clone -b loong64-port https://projects.blender.org/Yuanzhen-Gan/blender.git blender
 
       - uses: actions/cache@v4
         with:
