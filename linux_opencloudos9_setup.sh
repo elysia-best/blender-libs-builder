@@ -195,7 +195,7 @@ yum -y install jack-audio-connection-kit-devel
 # - "Install kernel driver".
 
 # LoongArch64 use pre-packages zips
-wget -k -O /tmp/rocm-6.3.1-loongarch64.tar.gz https://sourceforge.net/projects/elysia-loongarch-debian/files/libs/rocm/rocm-6.3.1-loongarch64.tar.gz
+wget -k -q -O /tmp/rocm-6.3.1-loongarch64.tar.gz https://sourceforge.net/projects/elysia-loongarch-debian/files/libs/rocm/rocm-6.3.1-loongarch64.tar.gz
 tar xf /tmp/rocm-6.3.1-loongarch64.tar.gz -C /opt
 rm /tmp/rocm-6.3.1-loongarch64.tar.gz
 update-alternatives --install /opt/rocm rocm /opt/rocm-6.3.1 10
