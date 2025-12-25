@@ -20,13 +20,9 @@ jobs:
           fetch-depth: 0
 
       - name: Checkout Blender repo
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 1
-          lfs: true
-          repository: Yuanzhen-Gan/blender
-          github-server-url: 'https://projects.blender.org'
-          token: ''
+        run: |
+          git-lfs install
+          git clone https://projects.blender.org/Yuanzhen-Gan/blender.git blender
 
       - name: Setup QEMU
         uses: docker/setup-qemu-action@v3
