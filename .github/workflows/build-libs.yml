@@ -24,6 +24,13 @@ jobs:
           git-lfs install
           git clone https://projects.blender.org/Yuanzhen-Gan/blender.git blender
 
+      - uses: actions/cache@v4
+        with:
+          path: |
+            build_linux/deps_loongarch64
+          key: blender_build_deps_loongarch64
+          restore-keys: blender_build_deps
+
       - name: Setup QEMU
         uses: docker/setup-qemu-action@v3
 
