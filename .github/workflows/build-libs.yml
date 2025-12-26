@@ -23,6 +23,7 @@ jobs:
           remove-android: 'true'
           remove-haskell: 'true'
           remove-codeql: 'true'
+          remove-docker-images: 'true'
 
       - name: Checkout sources
         uses: actions/checkout@v4
@@ -50,7 +51,7 @@ jobs:
 
       - name: Setup Docker
         run: |
-          mnkdir -p ${{ github.workspace }}/docker_data
+          mkdir -p ${{ github.workspace }}/docker_data
           sudo systemctl stop docker.service
           sudo rm -f /etc/docker/daemon.json
           echo "{ \"data-root": \"${{ github.workspace }}/docker_data\" }" | sudo tee /etc/docker/daemon.json
@@ -62,12 +63,10 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
 
-      - name: Set up loong64 Debian container
-        uses: addnab/docker-run-action@v3
-        with:
-          image: ghcr.io/loong64/opencloudos:9
-          options: --cpus=4 --platform linux/loong64 --privileged -v ${{ github.workspace }}/ws_root:/work
-          run: |
+      - name: Set up container and build libs
+        run: |
+          DOCKER_IMAGE="ghcr.io/loong64/opencloudos:9"
+          DOCKER_CMD=`cat << EOF
             cd /work
             # Change mirror
             sed -i 's|mirrors\.opencloudos\.tech|mirrors.tencent.com|g' /etc/yum.repos.d/*.repo
@@ -81,6 +80,16 @@ jobs:
             sed -i 's|http://ftp.gnu.org/pub/gnu|http://ftpmirror.gnu.org|g' build_files/build_environment/cmake/versions.cmake
             sed -i 's|https://gmplib.org/download|http://ftpmirror.gnu.org|g' build_files/build_environment/cmake/versions.cmake
             make deps
+          EOF
+          `
+          docker run --rm \
+            --cpus=`nproc` \
+            --platform linux/loong64 \
+            --volume /tmp/.cache:/root/.cache \
+            --volume ${{ github.workspace }}/ws_root:/work \
+            --workdir /work \
+            "$DOCKER_IMAGE" \
+            bash -c "$DOCKER_CMD"
             
       - name: Package built libraries
         run: |
