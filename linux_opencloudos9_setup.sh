@@ -52,6 +52,7 @@ PACKAGES_FOR_LIBS=(
     bzip2
     # Used to extract packages.
     tar
+    zstd
     # Blender and some dependencies use `cmake`.
     cmake3
     # Apply patches from Blender's: `./build_files/build_environment/patches`
@@ -197,8 +198,8 @@ yum -y install jack-audio-connection-kit-devel
 # - "Install kernel driver".
 
 # LoongArch64 use pre-packages zips
-wget -k -O /tmp/rocm-6.3.1-loongarch64.tar.gz https://sourceforge.net/projects/elysia-loongarch-debian/files/libs/rocm/rocm-6.3.1-loongarch64.tar.gz/download?use_mirror=sf-west-interserver-1
-tar xf /tmp/rocm-6.3.1-loongarch64.tar.gz -C /opt
+wget -k -O /tmp/rocm-6.3.1-loongarch64.tar.gz https://github.com/loong64-abi2-0/ROCm-Binary/releases/download/v6.3.1/rocm-6.3.1-loongarch64.tar.zst
+zstd -d -c file.tar.zst | tar -xf - -C /opt
 rm /tmp/rocm-6.3.1-loongarch64.tar.gz
 update-alternatives --install /opt/rocm rocm /opt/rocm-6.3.1 10
 
