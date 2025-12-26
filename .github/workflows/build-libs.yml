@@ -29,13 +29,13 @@ jobs:
         uses: actions/cache/restore@v4
         with:
           path: |
-            ${{ github.workspace }}/blender/build_linux/deps_loongarch64
+            ${{ github.workspace }}/build_linux/deps_loongarch64
           key: blender_build_deps_loongarch64-
 
       - name: Setup Cache
         run: |
-          sudo mkdir -p ${{ github.workspace }}/blender/build_linux/deps_loongarch64
-          sudo chown -R root:docker ${{ github.workspace }}/blender/build_linux/deps_loongarch64
+          sudo mkdir -p ${{ github.workspace }}/build_linux/deps_loongarch64
+          sudo chown -R root:docker ${{ github.workspace }}/build_linux/deps_loongarch64
           
       - name: Setup QEMU
         uses: docker/setup-qemu-action@v3
@@ -62,14 +62,14 @@ jobs:
       - name: Cache permissions
         if: always()
         run: |
-          sudo chown -R runner:docker ${{ github.workspace }}/blender/build_linux/deps_loongarch64
+          sudo chown -R runner:docker ${{ github.workspace }}/build_linux/deps_loongarch64
 
       - name: Save Cache
         if: always()
         id: cache-save
         uses: actions/cache/save@v4
         with:
-          path: ${{ github.workspace }}/blender/build_linux/deps_loongarch64
+          path: ${{ github.workspace }}/build_linux/deps_loongarch64
           key: blender_build_deps_loongarch64-${{ github.run_id }}
             
       - name: Package built libraries
