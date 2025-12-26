@@ -67,6 +67,7 @@ jobs:
         run: |
           DOCKER_IMAGE="ghcr.io/loong64/opencloudos:9"
           DOCKER_CMD=`cat << EOF
+            set -e
             cd /work
             # Change mirror
             sed -i 's|mirrors\.opencloudos\.tech|mirrors.tencent.com|g' /etc/yum.repos.d/*.repo

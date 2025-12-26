@@ -199,7 +199,7 @@ yum -y install jack-audio-connection-kit-devel
 
 # LoongArch64 use pre-packages zips
 wget -k -O /tmp/rocm-6.3.1-loongarch64.tar.gz https://github.com/loong64-abi2-0/ROCm-Binary/releases/download/v6.3.1/rocm-6.3.1-loongarch64.tar.zst
-zstd -d -c file.tar.zst | tar -xf - -C /opt
+zstd -d -c /tmp/rocm-6.3.1-loongarch64.tar.gz | tar -xf - -C /opt
 rm /tmp/rocm-6.3.1-loongarch64.tar.gz
 update-alternatives --install /opt/rocm rocm /opt/rocm-6.3.1 10
 
