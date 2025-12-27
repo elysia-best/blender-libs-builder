@@ -1,2 +1,2 @@
 # blender-libs-builder
-Build blender libs for LoongArch64
+Build blender libs for LoongArch64. The build scripts used in the repo is modified according to the offical guide, see https://developer.blender.org/docs/handbook/release_process/build/rocky_8/#setting-up-the-rocky-8-environment for more details.
