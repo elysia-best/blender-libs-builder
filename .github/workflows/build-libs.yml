@@ -64,6 +64,7 @@ jobs:
         uses: docker/setup-buildx-action@v3
 
       - name: Set up container and build libs
+        timeout-minutes: 330
         run: |
           DOCKER_IMAGE="ghcr.io/loong64/opencloudos:9"
           DOCKER_CMD=`cat << EOF
