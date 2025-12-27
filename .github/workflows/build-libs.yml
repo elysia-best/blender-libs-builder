@@ -72,9 +72,9 @@ jobs:
             cd /work
             # Change mirror
             sed -i 's|mirrors\.opencloudos\.tech|mirrors.tencent.com|g' /etc/yum.repos.d/*.repo
-            bash ./linux_opencloudos9_setup.sh
-            yum clean all
-            dnf clean all
+            bash ./linux_opencloudos9_setup.sh 1>/dev/null
+            yum clean all 1>/dev/null
+            dnf clean all 1>/dev/null
 
             cd blender
             # Replace mirror
